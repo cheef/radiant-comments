@@ -1,4 +1,8 @@
-require_dependency 'application'
+begin
+  require_dependency 'application_controller'
+rescue MissingSourceFile
+  require_dependency 'application'
+end
 
 class CommentsExtension < Radiant::Extension
   version "0.0.6"
@@ -22,20 +26,10 @@ class CommentsExtension < Radiant::Extension
   end
   
   def activate
+    require 'csv_extensions'
     Page.send :include, CommentTags
+    Page.send :include, Commentable
     Comment
-    
-    Page.class_eval do
-      has_many :comments, :dependent => :destroy, :order => "created_at ASC"
-      has_many :approved_comments, :class_name => "Comment", :conditions => "comments.approved_at IS NOT NULL", :order => "created_at ASC"
-      has_many :unapproved_comments, :class_name => "Comment", :conditions => "comments.approved_at IS NULL", :order => "created_at ASC"
-      attr_accessor :last_comment
-      attr_accessor :selected_comment
-      
-      def has_visible_comments?
-        !(approved_comments.empty? && selected_comment.nil?)
-      end
-    end
     
     if admin.respond_to? :page
       admin.page.edit.add :parts_bottom, "edit_comments_enabled", :before => "edit_timestamp"
@@ -44,34 +38,6 @@ class CommentsExtension < Radiant::Extension
     end
     
     admin.tabs.add "Comments", "/admin/comments/unapproved", :visibility => [:all]
-    require "fastercsv"
-    
-    ActiveRecord::Base.class_eval do
-      def self.to_csv(*args)
-        find(:all).to_csv(*args)
-      end
-
-      def export_columns(format = nil)
-        self.class.content_columns.map(&:name) - ['created_at', 'updated_at']
-      end
-
-      def to_row(format = nil)
-        export_columns(format).map { |c| self.send(c) }
-      end
-    end
-    
-    Array.class_eval do
-      def to_csv(options = {})
-        return "" if first.nil?
-        if all? { |e| e.respond_to?(:to_row) }
-          header_row = first.export_columns(options[:format]).to_csv
-          content_rows = map { |e| e.to_row(options[:format]) }.map(&:to_csv)
-          ([header_row] + content_rows).join
-        else
-          FasterCSV.generate_line(self, options)
-        end
-      end
-    end    
   end
   
   def deactivate

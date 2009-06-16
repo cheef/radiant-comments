@@ -9,6 +9,7 @@ describe Comment do
     @mollom = mock("mollom", :key_ok? => false, :check_content => @mollom_response, :server_list= => '')
     @page = pages(:home)
     
+    Radiant::Config['comments.auto_approve'] = 'true'
     Akismet.stub!(:new).and_return(@akismet)
     Mollom.stub!(:new).and_return(@mollom)
   end
@@ -36,6 +37,26 @@ describe Comment do
     before do
       @comment = comments(:first)
       @comment.stub!(:using_logic_spam_filter?).and_return(false)
+      Radiant::Config['comments.filters_enabled'] = "true"
+    end
+    
+    it "should escape html for content_html when a filter is not selected" do
+      @comment.content = %{<script type="text/javascript">alert('hello')</script>}
+      @comment.save!
+      @comment.content_html.should == %{<p>&lt;script type=&quot;text/javascript&quot;&gt;alert('hello')&lt;/script&gt;</p>}
+    end
+    it "should sanitize and filter the content for content_html when a filter is selected" do
+      @comment.filter_id = 'Textile'
+      @comment.content = %{*hello*<script type="text/javascript">alert('hello')</script>}
+      @comment.save!
+      @comment.content_html.should == %{<p><strong>hello</strong></p>}
+    end
+    it "should escape the content for content_html when a filter is not selected" do
+      Radiant::Config['comments.filters_enabled'] = 'true'
+      @comment.filter_id = ''
+      @comment.content = %{*hello*<script type="text/javascript">alert('hello')</script>}
+      @comment.save!
+      @comment.content_html.should == %{<p>*hello*&lt;script type=&quot;text/javascript&quot;&gt;alert('hello')&lt;/script&gt;</p>}
     end
 
     it "should successfully create comment" do
@@ -130,10 +151,11 @@ describe Comment do
 
   describe "using spam answer" do
     it "should error that the 'Spam answer is not correct' when saved with a spam_answer and valid_spam_answer that do not match" do
+      Radiant::Config['comments.simple_spam_filter_required?'] = true
       @comment = comments(:first)
       @comment.valid_spam_answer = 'TRUE'
       @comment.spam_answer = 'FALSE'
-      @comment.send(:using_logic_spam_filter?).should be_true
+      @comment.send(:simple_spam_filter_required?).should be_true
       lambda{ @comment.save! }.should raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Spam answer is not correct.')
     end
     it "should allow differing capitalization and punctuation in the answers when comparing" do

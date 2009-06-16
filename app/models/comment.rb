@@ -1,5 +1,7 @@
 require 'digest/md5'
 class Comment < ActiveRecord::Base
+  include ActionView::Helpers::SanitizeHelper
+  extend ActionView::Helpers::SanitizeHelper::ClassMethods
   belongs_to :page, :counter_cache => true
   
   validate :validate_spam_answer
@@ -44,7 +46,8 @@ class Comment < ActiveRecord::Base
   # If the Akismet details are valid, and Akismet thinks this is a non-spam
   # comment, this method will return true
   def auto_approve?
-    if using_logic_spam_filter?
+    return false if Radiant::Config['comments.auto_approve'] != "true"
+    if simple_spam_filter_required?
       passes_logic_spam_filter?
     elsif akismet.valid?
       # We do the negation because true means spam, false means ham
@@ -118,21 +121,17 @@ class Comment < ActiveRecord::Base
   private
   
     def validate_spam_answer
-      if using_logic_spam_filter? && !passes_logic_spam_filter?
+      if simple_spam_filter_required? && !passes_logic_spam_filter?
         self.errors.add :spam_answer, "is not correct."
       end
     end
     
     def passes_logic_spam_filter?
-      if valid_spam_answer == hashed_spam_answer
-        true
-      else
-        false
-      end
+      valid_spam_answer == hashed_spam_answer
     end
     
-    def using_logic_spam_filter?
-      !valid_spam_answer.blank?
+    def simple_spam_filter_required?
+      !valid_spam_answer.blank? && Radiant::Config['comments.simple_spam_filter_required?']
     end
     
     def hashed_spam_answer
@@ -144,15 +143,23 @@ class Comment < ActiveRecord::Base
     end
     
     def apply_filter
-      self.content_html = filter.filter(content)
+      self.content_html = sanitize(filter.filter(content))
     end
     
     def filter
-      filtering_enabled? && filter_from_form || SimpleFilter.new
+      if filtering_enabled? && filter_from_form
+        filter_from_form
+      else
+        SimpleFilter.new
+      end
     end
     
     def filter_from_form
-      TextFilter.descendants.find { |f| f.filter_name == filter_id }
+      unless filter_id.blank?
+        TextFilter.descendants.find { |f| f.filter_name == filter_id }
+      else
+        nil
+      end
     end
     
     def filtering_enabled?

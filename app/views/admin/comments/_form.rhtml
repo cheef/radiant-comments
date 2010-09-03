@@ -7,30 +7,30 @@
 <div id="comment_form_container" class="form-area">
   <div class="row">
     <p>
-      <label for="comment_author"><%= t 'comments.author' %></label><br/>
+      <label for="comment_author"><%= t 'comments_extension.author' %></label><br/>
       <%= f.text_field :author %>
     </p>
     <p>
-      <label for="comment_author_url"><%= t 'comments.url' %></label><br/>
+      <label for="comment_author_url"><%= t 'comments_extension.url' %></label><br/>
       <%= f.text_field :author_url %>
     </p>
   </div>
   <br style="clear: both" />
   <p>
-    <label for="comment_author_email"><%= t 'comments.email' %></label><br/>
+    <label for="comment_author_email"><%= t 'comments_extension.email' %></label><br/>
     <%= f.text_field :author_email %>
   </p>
   <p>
-    <label for="comment_content"><%= t 'comments.singular' %></label><br />
+    <label for="comment_content"><%= t 'comments_extension.singular' %></label><br />
     <%= f.text_area :content, :rows => 10, :cols => 72, :class => "textarea"%>
   </p>
   <p>
-    <label for="comment_filter_id"><%= t 'comments.filter' %></label>
+    <label for="comment_filter_id"><%= t 'comments_extension.filter' %></label>
     <%= f.select :filter_id, [['<none>', '']] + TextFilter.descendants.map { |s| s.filter_name }.sort %>
   </p>
 </div>
 <p class="buttons">
   <%= save_model_button(@comment) %>
-  <%= t 'comments.or' %>
-  <%= link_to t('comments.cancel'), :back %>
+  <%= t 'comments_extension.or' %>
+  <%= link_to t('comments_extension.cancel'), :back %>
 </p>

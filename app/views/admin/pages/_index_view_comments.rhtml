@@ -2,9 +2,9 @@
   <% if page.respond_to?('enable_comments') %>
   <small>
     <% if page.enable_comments %>
-      <%= link_to t('comments.count', :count => page.comments_count), admin_page_comments_path(:page_id => page.id) %>
+      <%= link_to t('comments_extension.count', :count => page.comments_count), admin_page_comments_path(:page_id => page.id) %>
     <% else %>
-      <%= link_to t('comments.enable'), admin_page_enable_comments_path(:page_id => page.id), :method => :put %>
+      <%= link_to t('comments_extension.enable'), admin_page_enable_comments_path(:page_id => page.id), :method => :put %>
     <% end %>
   </small>
   <% end %>

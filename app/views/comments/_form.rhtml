@@ -1,4 +1,4 @@
-<h1><%= t 'comments.form_title' %></h1>
+<h1><%= t 'comments_extension.form_title' %></h1>
 
 <div id="comment_form_container">
 
@@ -6,15 +6,15 @@
   
   <a name="comment_form"></a>
   
-  <%= f.text_field :author, :label => t('comments.your_name'), :class => "regular" %>
+  <%= f.text_field :author, :label => t('comments_extension.your_name'), :class => "regular" %>
   
   <%= f.text_field :author_url %>
   
   <%= f.text_field :author_email %>
   
-  <%= f.text_area :content, :label => t('comments.your_comment'), :rows => 5, :class => "regular" %>
+  <%= f.text_area :content, :label => t('comments_extension.your_comment'), :rows => 5, :class => "regular" %>
   
-  <%= submit_tag(t('comments.save'), :class => "button", :id => "comment_submit_button") %>
+  <%= submit_tag(t('comments_extension.save'), :class => "button", :id => "comment_submit_button") %>
   
   <%= f.hidden_field :page_id %>
   

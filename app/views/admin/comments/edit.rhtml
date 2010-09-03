@@ -1,4 +1,4 @@
-<h1><%= t 'comments.edit_on', :page => escape_once(@comment.page.title) %></h1>
+<h1><%= t 'comments_extension.edit_on', :page => escape_once(@comment.page.title) %></h1>
 
 <% form_for [:admin, @comment] do |f| %>
   <%= render :partial => "form", :locals => {:f => f} %>

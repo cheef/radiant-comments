@@ -1,61 +1,62 @@
 ---
 en:
+  comments: Comments
   comments_extension:
-    tab: 'Comments'
-    singular: 'Comment'
+    singular: Comment
+    plural: Сomments
     page:
-      allow_label: 'Allow Comments on this page?'
+      allow_label: Allow Comments on this page?
       view_link: 'Currently {{count}} &mdash; View comments'
     count:     
       one: comment
       zero: comments
       many: comments
-    title: 'Comments'
-    enable: 'Enable'
+    title: Comments
+    enable: Enable
     count: '{{count}} comments'
-    all: 'All'
-    approved: 'Approved'
-    unapproved: 'Unapproved'
-    download_csv: 'Download in CSV'
-    content: 'Content'
-    url: 'URL'
-    date: 'Date'
-    email: 'Email'
-    author: 'Author'
-    on_page: 'Page'
-    actions: 'Actions'
-    empty: 'No comments'
-    delete_unapproved: 'Delete All Unapproved'
-    click_to_toggle:  'Click to toggle complete text'
-    edit_page: 'Edit page'
-    approve: 'Approve comment'
-    unapprove: 'Unapprove comment'
-    delete_confirm: 'Are you sure you want to delete this comment?'
-    delete: 'Delete comment'
-    edit: 'Edit comment'
-    filter: 'Filter'
-    cancel: 'Cancel'
-    or: 'or'
-    on: 'on'
+    all: All
+    approved: Approved
+    unapproved: Unapproved
+    download_csv: Download in CSV
+    content: Content
+    url: URL
+    date: Date
+    email: Email
+    author: Author
+    on_page: Page
+    actions: Actions
+    empty: No comments
+    delete_unapproved: Delete All Unapproved
+    click_to_toggle:  Click to toggle complete text
+    edit_page: Edit page
+    approve: Approve comment
+    unapprove: Unapprove comment
+    delete_confirm: Are you sure you want to delete this comment?
+    delete: Delete comment
+    edit: Edit comment
+    filter: Filter
+    cancel: Cancel
+    or: or
+    on: on
     edit_on: 'Edit Comment on {{page}}'
-    form_title: 'Comment Form'
-    your_comment: 'Your comment'
-    your_name: "Your Name (as you'd like it to appear on this comment)"
-    save: 'Save comment'
+    form_title: Comment Form
+    your_comment: Your comment
+    your_name: Your Name (as you'd like it to appear on this comment)
+    save: Save comment
     noticies:
       remove_all_unapproved:
-        success: "You have removed all unapproved comments."
-        fail: "I was unable to remove all unapproved comments."
+        success: You have removed all unapproved comments.
+        fail: I was unable to remove all unapproved comments.
       update:
-        success: "Comment Saved"
-        fail: "There was an error saving the comment: {{message}}"
+        success: Comment Saved
+        fail: 'There was an error saving the comment: {{message}}'
       enable:
-        success: "Comments have been enabled for {{page_title}}"
+        success: 'Comments have been enabled for {{page_title}}'
       approve:
-        success: "Comment was successfully approved on page {{page_title}}{{antispamnotice}}"
+        success: 'Comment was successfully approved on page {{page_title}}{{antispamnotice}}'
       antispam:
-        warning: "The antispam engine gave a warning: {{warning}}<br />"
+        warning: 'The antispam engine gave a warning: {{warning}}<br />'
       unapprove:
-        success: "Comment was successfully unapproved on page {{page_title}}{{antispamnotice}}"
+        success: 'Comment was successfully unapproved on page {{page_title}}{{antispamnotice}}'
       remove:
-        success: "The comment was successfully removed from the site."
+        success: The comment was successfully removed from the site.

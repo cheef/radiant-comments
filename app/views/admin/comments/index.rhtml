@@ -16,17 +16,17 @@
 <%- include_stylesheet 'admin/comments' %>
 <h1>
   <% if @page -%>
-    <%= @page.comments.count %> <%= t("comments.#{params[:status]}") if params[:status] %><%= t('comments.count', :count => @page.comments.count) %> <%= t 'comments.on' %> <%= link_to @page.title, edit_admin_page_path(@page) %>
+    <%= @page.comments.count %> <%= t("comments_extension.#{params[:status]}") if params[:status] %><%= t('comments_extension.count', :count => @page.comments.count) %> <%= t 'comments_extension.on' %> <%= link_to @page.title, edit_admin_page_path(@page) %>
   <% else -%>
-    <%= t("comments.#{params[:status]}") if params[:status] %> <%= t 'comments.plural' %>
+    <%= t("comments_extension.#{params[:status]}") if params[:status] %> <%= t 'comments_extension.plural' %>
   <% end -%>
 </h1>
 
 <ul id="comment-nav">
-  <li class="all"><%= link_or_span_unless_current(t('comments.all'), :status => 'all', :page_id => params[:page_id]) %></li>
-  <li class="approved"><%= link_or_span_unless_current(t('comments.approved'), :status => "approved", :page_id => params[:page_id]) %></li>
-  <li class="unapproved"><%= link_or_span_unless_current(t('comments.unapproved'), :status => "unapproved", :page_id => params[:page_id]) %></li>
-  <li class="csv"><%= link_to t('comments.download_csv'), :format => :csv %></li>
+  <li class="all"><%= link_or_span_unless_current(t('comments_extension.all'), :status => 'all', :page_id => params[:page_id]) %></li>
+  <li class="approved"><%= link_or_span_unless_current(t('comments_extension.approved'), :status => "approved", :page_id => params[:page_id]) %></li>
+  <li class="unapproved"><%= link_or_span_unless_current(t('comments_extension.unapproved'), :status => "unapproved", :page_id => params[:page_id]) %></li>
+  <li class="csv"><%= link_to t('comments_extension.download_csv'), :format => :csv %></li>
 </ul>
 
 <%= will_paginate @comments %>
@@ -34,22 +34,22 @@
 <table id="comments" class="index" border="0" cellspacing="0" cellpadding="0">
   <thead>
     <tr>
-      <th><%= t 'comments.content' %></th>
-      <th><%= t 'comments.date' %></th>
-      <th><%= t 'comments.author' %></th>
-      <% unless @page %><th><%= t 'comments.on_page' %></th><% end %>
-      <th><%= t 'comments.actions' %></th>
+      <th><%= t 'comments_extension.content' %></th>
+      <th><%= t 'comments_extension.date' %></th>
+      <th><%= t 'comments_extension.author' %></th>
+      <% unless @page %><th><%= t 'comments_extension.on_page' %></th><% end %>
+      <th><%= t 'comments_extension.actions' %></th>
     </tr>
   </thead>
   <tbody>
-    <%= render(:partial => "comment", :collection => @comments) || %Q[<tr><td class="note" colspan="#{@page ? 4 : 5}">#{t('comments.empty')}</td></tr>] %>
+    <%= render(:partial => "comment", :collection => @comments) || %Q[<tr><td class="note" colspan="#{@page ? 4 : 5}">#{t('comments_extension.empty')}</td></tr>] %>
   </tbody>
 </table>
 
 <%= will_paginate @comments %>
 
 <% form_tag destroy_unapproved_admin_comments_url, :method => :delete do %>
-<p><button type="submit" class="delete-unapproved"><%= image_tag("admin/comments_delete.png") %> <%= t 'comments.delete_unapproved' %></button></p>
+<p><button type="submit" class="delete-unapproved"><%= image_tag("admin/comments_delete.png") %> <%= t 'comments_extension.delete_unapproved' %></button></p>
 <% end %>
 
 <p><small class="notice"><%= Comment.spam_filter.message %></small></p>

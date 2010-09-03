@@ -1,4 +1,4 @@
-<h1><%= t 'comments.form_title' %></h1>
+<h1><%= t 'comments_extension.form_title' %></h1>
 
 <% form_for :comment, @comment, :url => {:controller => :comments, :action => :create} do |f| %>
   <%= render :partial => "comments/form", :locals => {:f => f} %>

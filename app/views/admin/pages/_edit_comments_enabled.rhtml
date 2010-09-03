@@ -1,8 +1,8 @@
 <p style="clear:left">
-  <label for="page_enable_comments"><%= t 'comments.page.allow_label' %></label>
+  <label for="page_enable_comments"><%= t 'comments_extension.page.allow_label' %></label>
   <%= check_box "page", "enable_comments" %>
   
   <small>
-    <%= link_to t('comments.page.view_link', :count => @page.comments_count), admin_page_comments_path(:page_id => @page.id) unless @page.new_record? or @page.comments_count < 1 %>
+    <%= link_to t('comments_extension.page.view_link', :count => @page.comments_count), admin_page_comments_path(:page_id => @page.id) unless @page.new_record? or @page.comments_count < 1 %>
   </small>
 </p>

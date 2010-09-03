@@ -1,4 +1,4 @@
-<h1>Comment Form</h1>
+<h1><%= t 'comments.form_title' %></h1>
 
 <div id="comment_form_container">
 
@@ -6,15 +6,15 @@
   
   <a name="comment_form"></a>
   
-  <%= f.text_field :author, :label => "Your Name (as you'd like it to appear on this comment)", :class => "regular" %>
+  <%= f.text_field :author, :label => t('comments.your_name'), :class => "regular" %>
   
   <%= f.text_field :author_url %>
   
   <%= f.text_field :author_email %>
   
-  <%= f.text_area :content, :label => "Your comment", :rows => 5, :class => "regular" %>
+  <%= f.text_area :content, :label => t('comments.your_comment'), :rows => 5, :class => "regular" %>
   
-  <%= submit_tag("Save comment", :class => "button", :id => "comment_submit_button") %> 
+  <%= submit_tag(t('comments.save'), :class => "button", :id => "comment_submit_button") %>
   
   <%= f.hidden_field :page_id %>
   

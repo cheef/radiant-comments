@@ -1,0 +1,62 @@
+---
+ru:
+  comments_extension:
+    tab: 'Комментарии'
+    singular: 'комментарий'
+    plural: 'комментарии'
+    page:
+      allow_label: 'Включить комментирование на этой странице?'
+      view_link: 'Всего {{count}} &mdash; Посмотреть комментарии'
+    count:
+      one: 'комментарий'
+      zero: 'комментариев'
+      many: 'комментариев'
+    title: 'Комментарии'
+    enable: 'Активировать'
+    count: '{{count}} комментариев'
+    all: 'Все'
+    approved: 'Одобренные'
+    unapproved: 'Отклонённые'
+    download_csv: 'Скачать в CSV формате'
+    content: 'Контент'
+    url: 'Адрес (URL)'
+    date: 'Дата'
+    email: 'Email'
+    author: 'Автор'
+    on_page: 'На странице'
+    actions: 'Действия'
+    empty: 'Комментариев нет'
+    delete_unapproved: 'Удалить все отклонённые'
+    click_to_toggle:  'Нажмите чтобы отобразить весь текст'
+    edit_page: 'Редактировать страницу'
+    approve: 'Одобрить комментарий'
+    unapprove: 'Отклонить комментарий'
+    delete_confirm: 'Вы уверены, что хотите удалить этот комментарий?'
+    delete: 'Удалить комментарий'
+    edit: 'Редактировать комментарий'
+    filter: 'Фильтр'
+    cancel: 'Отмена'
+    or: 'или'
+    on: 'на'
+    edit_on: 'Редактировать комментарий к {{page}}'
+    form_title: 'Создать комментарий'
+    your_comment: 'Ваш комментарий'
+    your_name: "Ваше имя"
+    save: 'Сохранить комментарий'
+    noticies:
+      remove_all_unapproved:
+        success: "Вы удалили все неподтверждённые комментарии"
+        fail: "Вы не можете удалить все неподтверждённые комментарии"
+      update:
+        success: "Комментарий сохранён"
+        fail: "При сохранении комментария возникла ошибка: {{message}}"
+      enable:
+        success: "Комментарии теперь доступны для {{page_title}}"
+      approve:
+        success: "Комментарий к {{page_title}}{{antispamnotice}} был подтверждён"
+      antispam:
+        warning: "Антиспам фильтр вернул предупреждение: {{warning}}<br />"
+      unapprove:
+        success: "Комментарий к {{page_title}}{{antispamnotice}} был отклонён"
+      remove:
+        success: "Комментарий был удалён"

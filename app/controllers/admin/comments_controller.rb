@@ -20,9 +20,9 @@ class Admin::CommentsController < ApplicationController
 
   def destroy_unapproved
     if Comment.unapproved.destroy_all
-      flash[:notice] = "You have removed all unapproved comments."
+      flash[:notice] = t 'comments.noticies.remove_all_unapproved.success'
     else
-      flash[:notice] = "I was unable to remove all unapproved comments."
+      flash[:notice] = t 'comments.noticies.remove_all_unapproved.fail'
     end
     redirect_to :back
   end
@@ -45,10 +45,10 @@ class Admin::CommentsController < ApplicationController
       end
       @comment.update_attributes!(params[:comment])
       clear_cache
-      flash[:notice] = "Comment Saved"
+      flash[:notice] = t 'comments.noticies.update.success'
       redirect_to :action => :index
     rescue Exception => e
-      flash[:notice] = "There was an error saving the comment: #{e.message}"
+      flash[:notice] = t 'comments.noticies.update.fail', :message => e.message
       render :action => :edit
     end
   end
@@ -58,7 +58,7 @@ class Admin::CommentsController < ApplicationController
     @page.enable_comments = true
     @page.save!
     clear_cache
-    flash[:notice] = "Comments have been enabled for #{@page.title}"
+    flash[:notice] = t 'comments.noticies.enable.success', :page_title => @page.title
     redirect_to admin_pages_url
   end
 
@@ -67,10 +67,10 @@ class Admin::CommentsController < ApplicationController
     begin
       @comment.approve!
     rescue Comment::AntispamWarning => e
-      antispamnotice = "The antispam engine gave a warning: #{e}<br />"
+      antispamnotice = t 'comments.noticies.antispam.warning', :warning => e.message
     end
     clear_single_page_cache(@comment)
-    flash[:notice] = "Comment was successfully approved on page #{@comment.page.title}" + (antispamnotice ? " (#{antispamnotice})" : "")
+    flash[:notice] = t 'comments.noticies.approve.success', :page_title => @comment.page.title, :antispamnotice => (antispamnotice ? " (#{antispamnotice})" : "")
     redirect_to :back
   end
 
@@ -79,10 +79,10 @@ class Admin::CommentsController < ApplicationController
     begin
       @comment.unapprove!
     rescue Comment::AntispamWarning => e
-      antispamnotice = "The antispam engine gave a warning: #{e}"
+      antispamnotice = t 'comments.noticies.antispam.warning', :warning => e.message
     end
     clear_single_page_cache(@comment)
-    flash[:notice] = "Comment was successfully unapproved on page #{@comment.page.title}" + (antispamnotice ? " (#{antispamnotice})" : "" )
+    flash[:notice] = t 'comments.noticies.unapprove.success', :page_title => @comment.page.title, :antispamnotice => (antispamnotice ? " (#{antispamnotice})" : "")
     redirect_to :back
   end
 
@@ -110,7 +110,7 @@ class Admin::CommentsController < ApplicationController
   end
 
   def announce_comment_removed
-    flash[:notice] = "The comment was successfully removed from the site."
+    flash[:notice] = t 'comments.noticies.remove.success'
   end
 
   def clear_cache
